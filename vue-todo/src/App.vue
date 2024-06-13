@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import TodoList from './components/TodoList.vue'
 import { useCounterStore } from './stores/counter.ts'
+import TodoList from './components/TodoList.vue'
+import imageSection from './components/imageSection.vue'
 
 const store = useCounterStore()
 const increment = () => {
@@ -18,6 +19,7 @@ const increment = () => {
   <main>
     <TodoList msg="Things todo" />
   </main>
+  <imageSection />
 </template>
 
 <style scoped>
@@ -35,6 +37,12 @@ main {
   border-radius: 20px;
   padding: 5px;
   margin-top: 5px;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  border: 2px solid red;
 }
 
 .test {

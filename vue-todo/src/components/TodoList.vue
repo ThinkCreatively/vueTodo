@@ -1,35 +1,35 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useItemStores } from '../stores/itemStore.ts'
 defineProps<{
   msg: string
 }>()
 
-const test = ref([
-  { id: 1, name: 'item 1' },
-  { id: 2, name: 'item 2' },
-  { id: 3, name: 'item 3' }
-])
+const { items, addItem, deleteItem, updateItem } = useItemStores()
 
-const addText = ref('')
-const addThenReset = () => {
-  test.value.push({ name: addText.value })
+let addText = ref('')
+
+const createNewItem = (name: string) => {
+  addItem(name)
   addText.value = ''
 }
+
 </script>
 
 <template>
   <div class="container">
     <h2>{{ msg }}</h2>
-    <div class="listItem" v-for="(item, index) in test" :key="item.id">
-      <span>{{ item.name }}</span>
-      <span>{{ index }}</span>
-      <div v-on:click="test.splice(index, 1)" class="listButton">Delete</div>
+    <div class="listItem" v-for="(item, index) in items" :key="item.id">
+      <span class="itemDetails">{{ item.name }}</span>
+      <span class="itemDetails">{{ index }}</span>
+      <div v-on:click="deleteItem(index)" class="listButton">Delete</div>
+      <div v-on:click="updateItem(index, 'newName')" class="listButton">Update</div>
     </div>
     <div>
       <span>Name: </span>
       <input v-model="addText" />
     </div>
-    <div class="addBtn" v-on:click="addThenReset">
+    <div class="addBtn" v-on:click="createNewItem(addText)">
       <h2>Add</h2>
     </div>
   </div>
@@ -49,6 +49,10 @@ const addThenReset = () => {
   justify-content: space-evenly;
   border: 2px solid ghostwhite;
   width: 30vw;
+}
+
+.itemDetails {
+  width: 10vw;
 }
 
 .listButton {

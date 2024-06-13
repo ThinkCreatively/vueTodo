@@ -8,22 +8,37 @@ defineProps<{
 const { items, addItem, deleteItem, updateItem } = useItemStores()
 
 let addText = ref('')
+let canUpdate = ref(false)
+let updateText = ref('')
 
 const createNewItem = (name: string) => {
   addItem(name)
   addText.value = ''
 }
 
+const setUpdateTrue = () => {
+  canUpdate.value = true
+}
+
+const actuallyUpdate = (index: number, updatedName: string) => {
+  updateItem(index, updatedName)
+  updateText.value = ''
+  canUpdate.value = false
+}
 </script>
 
 <template>
   <div class="container">
     <h2>{{ msg }}</h2>
     <div class="listItem" v-for="(item, index) in items" :key="item.id">
-      <span class="itemDetails">{{ item.name }}</span>
+      <span class="itemDetails" v-if="!canUpdate">{{ item.name }}</span>
+      <input v-if="canUpdate" v-model="updateText" />
       <span class="itemDetails">{{ index }}</span>
-      <div v-on:click="deleteItem(index)" class="listButton">Delete</div>
-      <div v-on:click="updateItem(index, 'newName')" class="listButton">Update</div>
+      <div class="listButton" v-on:click="deleteItem(index)">Delete</div>
+      <div class="listButton" v-if="!canUpdate" v-on:click="setUpdateTrue">Update</div>
+      <div class="listButton" v-if="canUpdate" v-on:click="actuallyUpdate(index, updateText.value)">
+        Confirm
+      </div>
     </div>
     <div>
       <span>Name: </span>

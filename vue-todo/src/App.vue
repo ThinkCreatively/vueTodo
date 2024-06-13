@@ -13,7 +13,7 @@ const increment = () => {
     <h2>This is my Vue Todo App</h2>
     <h3>All for learning purposes</h3>
     <div style="margin-top: 5vw">Testing State with Pinia, current count: {{ store.count }}</div>
-    <div v-on:click="increment">Click me to increment counter</div>
+    <div class="counterBtn" v-on:click="increment">Click me to increment counter</div>
   </header>
   <main>
     <TodoList msg="Things todo" />
@@ -27,6 +27,14 @@ header {
 
 main {
   width: 50vw;
+}
+
+.counterBtn {
+  background-color: gray;
+  color: black;
+  border-radius: 20px;
+  padding: 5px;
+  margin-top: 5px;
 }
 
 .test {

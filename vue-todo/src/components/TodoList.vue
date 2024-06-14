@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useItemStores } from '../stores/itemStore.ts'
+import { useItemStores } from '../stores/itemStore'
 defineProps<{
   msg: string
 }>()
@@ -36,7 +36,7 @@ const actuallyUpdate = (index: number, updatedName: string) => {
       <span class="itemDetails">{{ index }}</span>
       <div class="listButton" v-on:click="deleteItem(index)">Delete</div>
       <div class="listButton" v-if="!canUpdate" v-on:click="setUpdateTrue">Update</div>
-      <div class="listButton" v-if="canUpdate" v-on:click="actuallyUpdate(index, updateText.value)">
+      <div class="listButton" v-if="canUpdate" v-on:click="actuallyUpdate(index, updateText)">
         Confirm
       </div>
     </div>
@@ -85,5 +85,6 @@ const actuallyUpdate = (index: number, updatedName: string) => {
   border-radius: 10px;
   width: 5vw;
   text-align: center;
+  cursor: pointer;
 }
 </style>

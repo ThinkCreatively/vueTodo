@@ -13,11 +13,8 @@ const getData = async () => {
       .then((res) => res.json())
       .then((data) => {
         let randomNum = randomNumFromInterval(0, 11)
-        console.log(randomNum)
-
         imageUrl.value = data.message[randomNum]
       })
-      .then(() => console.log(imageUrl.value))
   } catch (err) {
     console.log('this is the error: ', err)
   }

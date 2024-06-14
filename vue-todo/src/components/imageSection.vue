@@ -12,7 +12,8 @@ const getData = async () => {
     fetch('https://dog.ceo/api/breeds/image/random/12')
       .then((res) => res.json())
       .then((data) => {
-        let randomNum = randomNumFromInterval(0, 12)
+        let randomNum = randomNumFromInterval(0, 11)
+        console.log(randomNum)
 
         imageUrl.value = data.message[randomNum]
       })
@@ -26,7 +27,12 @@ watchEffect(async () => getData())
 </script>
 
 <template>
-  <img :src="imageUrl" alt="Picture of Dog" />
+  <img class="image" :src="imageUrl" alt="Picture of Dog" />
 </template>
 
-<style scoped></style>
+<style scoped>
+.image {
+  height: 25vw;
+  width: 25vw;
+}
+</style>
